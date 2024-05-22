@@ -1,0 +1,14 @@
+app:
+  name: "postgres-professional"
+  version: "1.0.0"
+  timeout: 5s
+
+http:
+  port: ":8080"
+  timeout: 10s
+
+postgres:
+  poolMax: 2
+
+logger:
+  logLevel: "debug"
