@@ -14,8 +14,14 @@ type Service struct {
 	CommandsOperations
 }
 
-func NewService(repos *repository.Repositories) *Service {
+type ServicesDependencies struct {
+	Repos *repository.Repositories
+
+	SignKey string
+}
+
+func NewService(deps ServicesDependencies) *Service {
 	return &Service{
-		CommandsOperations: NewCommandsService(repos.CommandsOperation),
+		CommandsOperations: NewCommandsService(deps.Repos.CommandsOperation, deps.SignKey),
 	}
 }

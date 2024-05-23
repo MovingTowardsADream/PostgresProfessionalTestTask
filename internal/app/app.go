@@ -26,7 +26,13 @@ func New(log *slog.Logger, cfg *configs.Config) *App {
 	defer pg.Close()
 
 	repos := repository.NewRepositories(pg)
-	services := service.NewService(repos)
+
+	deps := service.ServicesDependencies{
+		Repos:   repos,
+		SignKey: "abcdef",
+	}
+
+	services := service.NewService(deps)
 	handler := gin.New()
 
 	v1.NewRouter(handler, log, services)
