@@ -9,11 +9,11 @@ import (
 )
 
 type walletRoutes struct {
-	w *service.Service
+	w service.CommandsOperations
 	l *slog.Logger
 }
 
-func newWalletRoutes(handler *gin.RouterGroup, w *service.Service, l *slog.Logger) {
+func newWalletRoutes(handler *gin.RouterGroup, w service.CommandsOperations, l *slog.Logger) {
 	r := &walletRoutes{w, l}
 
 	h := handler.Group("/wallet")
@@ -24,6 +24,7 @@ func newWalletRoutes(handler *gin.RouterGroup, w *service.Service, l *slog.Logge
 
 func (r *walletRoutes) createNewWallet(c *gin.Context) {
 	command := new(entity.Command)
+
 	wallet, err := r.w.CreateCommand(c.Request.Context(), command)
 	if err != nil {
 		return
